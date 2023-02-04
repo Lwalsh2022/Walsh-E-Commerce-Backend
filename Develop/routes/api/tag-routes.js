@@ -3,8 +3,8 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 // find all tags
 
-router.get('/', async (req, res) => {
- tag.findAll({
+router.get('/', (req, res) => {
+ Tag.findAll({
     include: {
       model: Product,
       attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
@@ -26,12 +26,11 @@ router.get('/:id', async (req, res) => {
     where: {
       id: req.params.id
     },
-  },
     include: {
     model: Product,
     attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
   }
-)
+})
   .then(dbTagData => res.json(dbTagData))
   .catch (err => {
     res.status(500).json(err);
